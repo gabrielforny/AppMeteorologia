@@ -1,20 +1,57 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
-      Blank
+      <div class="toolbar-title">
+        <img src="assets/icon/favicon.ico" alt="icone menu" class="img-title">
+        <p>Metereologia</p>
+      </div>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="filter-section">
+    <ion-item class="city-name">
+      <ion-label>Nome da Cidade</ion-label>
+      <ion-input [(ngModel)]="filterCity" placeholder="Digite o nome da cidade"></ion-input>
+    </ion-item>
+    <ion-item class="state">
+      <ion-label>Estado</ion-label>
+      <ion-select interface="action-sheet" [(ngModel)]="filterState">
+        <ion-select-option value="">Todos</ion-select-option>
+        <ion-select-option *ngFor="let state of uniqueStates" [value]="state">{{ state }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button expand="full" (click)="applyFilter()">Filtrar</ion-button>
+  </div>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div class="cards-grid">
+    <ion-card class="card-item" *ngFor="let data of resultPagination">
+      <ion-card-header>
+        <div class="card-header">
+          {{ data.name }}
+          <img [src]="getTemperatureImage(data.id)" class="temperature-image">
+        </div>
+      </ion-card-header>
+      <ion-card-content>
+        Estado: {{ data.state }}
+        <br>
+        Temperatura: {{ data.id }}°C
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div class="pagination-buttons" *ngIf="searchFilter.length !== 0 && searchFilter.length > 20">
+    <ion-button (click)="pageLoading(-1)" [disabled]="currentPage === 1">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+    <ion-button (click)="pageLoading(1)" [disabled]="currentPage >= totalPages">
+      <ion-icon name="arrow-forward"></ion-icon>
+    </ion-button>
+  </div>
+
+  <div *ngIf="searchFilter.length === 0" class="no-results-message">
+    <img src="assets/imgs/previsoes.png" alt="Nenhum resultado encontrado" class="no-results-image">
+    <p>Nenhum resultado encontrado para essa pesquisa!</p>
   </div>
 </ion-content>

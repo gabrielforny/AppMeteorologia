@@ -1,27 +1,85 @@
-#container {
-  text-align: center;
+.toolbar-title {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  padding: 12px 0;
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  >.img-title {
+    width: 40px;
+    height: 40px;
+  }
+
+  > p {
+    margin: 0;
+  }
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.card-header {
+  display: flex;
+  justify-content: space-between;
+
+  > .temperature-image {
+    width: 24px;
+    height: 24px;
+    margin-left: 5px;
+  }
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+.no-results-message {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
-  color: #8c8c8c;
+  > p {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+  }
 
-  margin: 0;
+  >.no-results-image {
+    width: 120px;
+    height: 120px;
+  }
 }
 
-#container a {
-  text-decoration: none;
+.pagination-buttons {
+  bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  position: fixed;
+  right: 20px;
+}
+
+.cards-grid {
+  display: grid;
+  gap: 10px;
+  padding: 10px;
+}
+
+@media (min-width: 768px) {
+  .cards-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .filter-section {
+    align-items: center;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .filter-section {
+    >.city-name {
+      flex-basis: calc(50% - 10px);
+    }
+
+    >.state{
+      flex-basis: calc(20% - 10px);
+    }
+
+    margin-bottom: 10px;
+  }
 }
