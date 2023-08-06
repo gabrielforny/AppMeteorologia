@@ -13,7 +13,7 @@ interface infoDataCities {
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  apiKey = '8b9cb2497394a2f8519f3f76b9d217eb';
+  apiKey = '56f3da811c960ad0e832a441d917db5e';
   city = 'RJ';
   country = 'BR';
 
