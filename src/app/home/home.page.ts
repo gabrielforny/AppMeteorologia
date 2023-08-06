@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ModalController } from '@ionic/angular';
+import { InfoStateModalComponent } from '../info-state-modal/info-state-modal.component';
 
 interface infoDataCities {
   name: string;
@@ -13,9 +15,11 @@ interface infoDataCities {
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  apiKey = '56f3da811c960ad0e832a441d917db5e';
+  apiKeyClimaTempo = '56f3da811c960ad0e832a441d917db5e';
   city = 'RJ';
   country = 'BR';
+  filterCity = '';
+  filterState = '';
 
   resultPrevision: infoDataCities[] = [];
   searchFilter: infoDataCities[] = [];
@@ -26,19 +30,16 @@ export class HomePage {
   itemsPerPage = 20;
   totalPages = 1;
 
-  filterCity = '';
-  filterState = '';
-
   darkModeEnabled: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private modalController: ModalController) {}
 
   ngOnInit() {
     this.getStatesForCountry();
   }
 
   getStatesForCountry() {
-    const url = `http://apiadvisor.climatempo.com.br/api/v1/locale/city?country=${this.country}&token=${this.apiKey}`;
+    const url = `http://apiadvisor.climatempo.com.br/api/v1/locale/city?country=${this.country}&token=${this.apiKeyClimaTempo}`;
     this.http.get<infoDataCities[]>(url).subscribe((data) => {
       this.resultPrevision = data;
       this.searchFilter = data;
@@ -88,13 +89,14 @@ export class HomePage {
     }
   }
 
-  getTemperatureImage(temperature: number): string {
-    if (temperature >= 30) {
-      return 'assets/images/sunny.png';
-    } else if (temperature >= 20) {
-      return 'assets/images/partly_sunny.png';
-    } else {
-      return 'assets/images/cloudy.png';
-    }
+  async openWeatherModal(data: any) {
+    const modal = await this.modalController.create({
+      component: InfoStateModalComponent,
+      componentProps: {
+        weatherData: data
+      }
+    });
+
+    await modal.present();
   }
 }

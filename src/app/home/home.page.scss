@@ -14,15 +14,13 @@
   }
 }
 
+.card-item {
+  cursor: pointer;
+}
+
 .card-header {
   display: flex;
   justify-content: space-between;
-
-  > .temperature-image {
-    width: 24px;
-    height: 24px;
-    margin-left: 5px;
-  }
 }
 
 .no-results-message {

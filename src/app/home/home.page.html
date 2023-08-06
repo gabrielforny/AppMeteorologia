@@ -13,7 +13,7 @@
   <div class="filter-section">
     <ion-item class="city-name">
       <ion-label>Nome da Cidade</ion-label>
-      <ion-input [(ngModel)]="filterCity" placeholder="Digite o nome da cidade"></ion-input>
+      <ion-input [(ngModel)]="filterCity" placeholder="Digite o nome da cidade" (keyup.enter)="applyFilter()"></ion-input>
     </ion-item>
     <ion-item class="state">
       <ion-label>Estado</ion-label>
@@ -26,17 +26,15 @@
   </div>
 
   <div class="cards-grid">
-    <ion-card class="card-item" *ngFor="let data of resultPagination">
+    <ion-card class="card-item" *ngFor="let data of resultPagination" (click)="openWeatherModal(data)">
       <ion-card-header>
         <div class="card-header">
           {{ data.name }}
-          <img [src]="getTemperatureImage(data.id)" class="temperature-image">
+          <ion-icon name="information-circle" title="Clique no card para ver mais informações do clima"></ion-icon>
         </div>
       </ion-card-header>
       <ion-card-content>
         Estado: {{ data.state }}
-        <br>
-        Temperatura: {{ data.id }}°C
       </ion-card-content>
     </ion-card>
   </div>

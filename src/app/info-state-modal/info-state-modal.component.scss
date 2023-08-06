@@ -1,0 +1,16 @@
+.image-icon {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+}
+
+ion-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+ion-toolbar.share-toolbar {
+  margin-top: auto;
+}
